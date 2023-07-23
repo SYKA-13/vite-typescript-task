@@ -1,0 +1,21 @@
+.user-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .user-form {
+    width: 60%; /* 60% of the parent container */
+  }
+  
+  .user-form .submit-button {
+    margin-top: 20px;
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  
+  .user-form .MuiTextField-root {
+    margin-bottom: 15px;
+  }

@@ -1,0 +1,15 @@
+/* PostList.css */
+
+.post-list {
+    height: 300px; 
+    overflow-y: auto; 
+    margin-bottom: 20px; }
+.logout-button {
+    background-color: #4CAF50; 
+    color: white; 
+
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
