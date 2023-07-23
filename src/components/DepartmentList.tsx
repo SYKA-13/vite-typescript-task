@@ -3,7 +3,7 @@ import { TreeView, TreeItem } from '@mui/lab';
 import { Checkbox } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import './DepartmentList.css';
+
 
 const departmentData = [
   {

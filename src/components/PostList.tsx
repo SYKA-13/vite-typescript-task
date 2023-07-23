@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom';
-import './PostList.css';
+import './postlist.css';
 interface Post {
   userId: number;
   id: number;
