@@ -21,7 +21,7 @@ export const PostList: React.FC = () => {
 
   const handleLogout = () => {
     localStorage.clear();
-    navigate('/UserForm');
+    navigate('/');
   };
 
   return (

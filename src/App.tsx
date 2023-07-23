@@ -11,40 +11,42 @@ import { PostList } from './components/PostList';
 import { DepartmentList } from './components/DepartmentList';
 
 const App: React.FC = () => {
-  // A piece of state to hold our user
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  // On mount, try to get the user data from localStorage
   useEffect(() => {
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      setUser(JSON.parse(userData));
+    const userChanged = () => {
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        setUser(JSON.parse(userData));
+      }
+      setLoading(false);
     }
-    setLoading(false);
+
+    // Listen for changes in localStorage
+    window.addEventListener('storage', userChanged);
+
+    // Call the function once initially
+    userChanged();
+
+    return () => {
+      // Clean up the event listener when the component is unmounted
+      window.removeEventListener('storage', userChanged);
+    };
   }, []);
 
-  if(loading) {
-    return <div>Loading...</div>; // Replace this with your own loading component or spinner
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Navigate to={user ? "/PostList" : "/UserForm"} />} />
-        <Route path="/UserForm" element={<UserForm />} />
-        <Route path="/PostList" element={
-          user ? (
-            <>
-              <PostList />
-              <DepartmentList />
-            </>
-          ) : (
-            <Navigate to="/UserForm" replace />
-          )
-        } />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<UserForm />} />
+      <Route path="/PostList" element={user ? <><PostList /><DepartmentList /></> : <Navigate to="/" replace />} />
+    </Routes>
+  </Router>
+  
   );
 };
 
