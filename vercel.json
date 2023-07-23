@@ -5,6 +5,7 @@
         "use": "@vercel/node"
       }
     ],
-    "installCommand": "npm install --include=dev"
+    "installCommand": "npm install --include=dev",
+    "outputDirectory": "dist"
   }
   
