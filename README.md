@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -32,3 +33,6 @@ and finally run the "npm run dev" command
 you will be provided with a localhost url in the terminal
 there you go!
 this website is going to be deployed for demonstration purposes!
+=======
+# vite-typescript-task
+>>>>>>> origin/main
