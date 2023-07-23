@@ -6,6 +6,15 @@
       }
     ],
     "installCommand": "npm install --include=dev",
-    "outputDirectory": "dist"
+    "outputDirectory": "dist",
+    "routes": [
+        {
+          "src": "/(.*)",
+          "dest": "/index.html",
+          "continue": true
+        }
+      ]
   }
+
+  
   
