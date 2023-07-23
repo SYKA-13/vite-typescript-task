@@ -25,3 +25,10 @@ If you are developing a production application, we recommend updating the config
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### how to run!
+you should have npm installed and the required node version installed
+install the dependencies if missing
+and finally run the "npm run dev" command
+you will be provided with a localhost url in the terminal
+there you go!
+this website is going to be deployed for demonstration purposes!
