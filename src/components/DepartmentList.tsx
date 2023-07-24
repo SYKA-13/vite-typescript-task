@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { TreeView, TreeItem } from '@mui/lab';
 import { Checkbox } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -28,54 +28,46 @@ const DepartmentList: React.FC = () => {
 
   const handleToggle = (value: string, isDepartment: boolean = false) => {
     let newChecked = [...checked];
-    let newExpanded = [...expanded];
 
     if (isDepartment) {
       const department = departmentData.find(d => d.department === value);
       if (department) {
         if (newChecked.includes(value)) {
           newChecked = newChecked.filter(v => v !== value && !department.sub_departments.includes(v));
-          newExpanded = newExpanded.filter(v => v !== value);
         } else {
           newChecked.push(value, ...department.sub_departments);
-          newExpanded.push(value);
         }
       }
     } else {
       const currentIndex = newChecked.indexOf(value);
+      const parentDepartment = departmentData.find(d => d.sub_departments.includes(value));
+
       if (currentIndex === -1) {
         newChecked.push(value);
+        if (parentDepartment && !newChecked.includes(parentDepartment.department)) {
+          newChecked.push(parentDepartment.department);
+        }
       } else {
         newChecked.splice(currentIndex, 1);
+        if (parentDepartment && newChecked.includes(parentDepartment.department) && parentDepartment.sub_departments.some(d => newChecked.includes(d))) {
+          newChecked = newChecked.filter(v => v !== parentDepartment.department);
+        }
       }
     }
 
     setChecked(newChecked);
-    setExpanded(newExpanded);
   };
 
-  useEffect(() => {
-    departmentData.forEach(department => {
-      if (department.sub_departments.every(subDept => checked.includes(subDept))) {
-        if (!checked.includes(department.department)) {
-          setChecked(prevChecked => [...prevChecked, department.department]);
-          setExpanded(prevExpanded => [...prevExpanded, department.department]);
-        }
-      } else {
-        if (checked.includes(department.department)) {
-          setChecked(prevChecked => prevChecked.filter(check => check !== department.department));
-          setExpanded(prevExpanded => prevExpanded.filter(expand => expand !== department.department));
-        }
-      }
-    });
-  }, [checked]);
+  const handleExpand = (_: any, nodeIds: string[]) => {
+    setExpanded(nodeIds);
+  };
 
   return (
     <TreeView
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpandIcon={<ChevronRightIcon />}
       expanded={expanded}
-      onNodeToggle={(_, nodeIds) => setExpanded(nodeIds)}
+      onNodeToggle={handleExpand}
     >
       {departmentData.map((department) => (
         <TreeItem
@@ -88,6 +80,7 @@ const DepartmentList: React.FC = () => {
                 checked={checked.includes(department.department)}
                 tabIndex={-1}
                 disableRipple
+                onClick={(event) => event.stopPropagation()}
                 onChange={() => handleToggle(department.department, true)}
               />
               {department.department}
@@ -105,6 +98,7 @@ const DepartmentList: React.FC = () => {
                     checked={checked.includes(subDepartment)}
                     tabIndex={-1}
                     disableRipple
+                    onClick={(event) => event.stopPropagation()}
                     onChange={() => handleToggle(subDepartment)}
                   />
                   {subDepartment}
