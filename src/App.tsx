@@ -1,3 +1,4 @@
+// App.tsx
 import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
@@ -41,13 +42,13 @@ const App: React.FC = () => {
 
   return (
     <Router>
-    <Routes>
-      <Route path="/" element={<UserForm />} />
-      <Route path="/PostList" element={user ? <><PostList /><DepartmentList /></> : <Navigate to="/" replace />} />
-    </Routes>
-  </Router>
-  
+      <Routes>
+        <Route path="/" element={<UserForm setUser={setUser} />} />
+        <Route path="/PostList" element={user ? <><PostList /><DepartmentList /></> : <Navigate to="/" replace />} />
+      </Routes>
+    </Router>
   );
 };
 
 export default App;
+

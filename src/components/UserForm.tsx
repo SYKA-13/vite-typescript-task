@@ -1,9 +1,14 @@
+// UserForm.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TextField, Button } from '@mui/material';
 import './userform.css';
 
-export const UserForm: React.FC = () => {
+interface UserFormProps {
+  setUser: (user: any) => void;
+}
+
+export const UserForm: React.FC<UserFormProps> = ({ setUser }) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -11,13 +16,15 @@ export const UserForm: React.FC = () => {
 
   const submitForm = (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     if (!name || !phone || !email) {
       alert('Please fill out all the fields.');
       return;
     }
+  
     const userData = { name, phone, email };
     localStorage.setItem('user', JSON.stringify(userData));
+    setUser(userData);
     navigate('/PostList');
   };
 

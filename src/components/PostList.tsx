@@ -20,6 +20,7 @@ export const PostList: React.FC = () => {
   }, []);
 
   const handleLogout = () => {
+    localStorage.removeItem("user");
     localStorage.clear();
     navigate('/');
   };
